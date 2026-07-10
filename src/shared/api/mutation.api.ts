@@ -1,17 +1,20 @@
 import { inject } from "@angular/core";
 import { injectMutation as mutation, QueryClient } from "@tanstack/angular-query-experimental";
 
-export function injectMutation<TInput, TOutput>(
-  mutationKeys: string[],
+export function injectMutation<TInput, TOutput, TError = Error>(
+  mutationKeys: readonly string[],
   mutationFunction: (payload: TInput) => Promise<TOutput>,
-  refetchKeys: string[] = [],
+  refetchKeys: readonly string[] = [],
 ) {
   const queryClient = inject(QueryClient);
   return mutation(() => ({
     mutationKey: mutationKeys,
     mutationFn: mutationFunction,
-    onSuccess() {
-      queryClient.removeQueries({ queryKey: refetchKeys });
+    async onSuccess() {
+      await queryClient.invalidateQueries({ queryKey: refetchKeys });
+    },
+    onError(error: TError) {
+      console.error(`[Mutation ${mutationKeys.join("/")}] Error: `, error);
     },
   }));
 }
