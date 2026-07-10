@@ -4,10 +4,11 @@ import { lastValueFrom } from "rxjs";
 import { LoginPayload } from "./login.schema";
 import { RegisterPayload } from "./register.schema";
 import { User } from "../../user/@x/authorization";
+import { SERVER_URL } from "@shared/index";
 
 @Service()
 export class AuthorizationService {
-  private static readonly AUTHORIZATION: string = "/authorization";
+  private static readonly AUTHORIZATION: string = `${SERVER_URL}/authorization`;
   private static readonly REGISTER: string = `${AuthorizationService.AUTHORIZATION}/register`;
   private static readonly LOGIN: string = `${AuthorizationService.AUTHORIZATION}/login`;
   private static readonly PROFILE: string = `${AuthorizationService.AUTHORIZATION}/profile`;
