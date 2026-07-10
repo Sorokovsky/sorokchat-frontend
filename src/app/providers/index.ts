@@ -1,10 +1,10 @@
-import { EnvironmentProviders, provideBrowserGlobalErrorListeners, Provider } from "@angular/core";
-import { provideRouter } from "@angular/router";
-import { ROUTES } from "../router";
+import { EnvironmentProviders, Provider } from "@angular/core";
 import { STORAGE_PROVIDER } from "@shared/index";
+import { ROUTER_PROVIDER } from "./router.provider";
+import { GLOBAL_ERROR_LISTENERS_PROVIDER } from "./global-error-listeners.provider";
 
 export const PROVIDERS: (Provider | EnvironmentProviders)[] = [
-  provideBrowserGlobalErrorListeners(),
-  provideRouter(ROUTES),
+  GLOBAL_ERROR_LISTENERS_PROVIDER,
+  ROUTER_PROVIDER,
   STORAGE_PROVIDER,
 ];
