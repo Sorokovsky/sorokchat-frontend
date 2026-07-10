@@ -1,1 +1,1 @@
-export { type Storage, STORAGE_TOKEN, PwaStorage } from "./api";
+export { type Storage, STORAGE_PROVIDER, injectStorage } from "./api";

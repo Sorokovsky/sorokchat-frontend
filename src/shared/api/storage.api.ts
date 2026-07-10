@@ -1,4 +1,5 @@
-import { InjectionToken, Signal } from "@angular/core";
+import { inject, InjectionToken, Provider, Signal } from "@angular/core";
+import { PwaStorage } from "./pwa-storage.service";
 
 export interface Storage {
   get<T>(key: string): Signal<T | null>;
@@ -7,4 +8,12 @@ export interface Storage {
   clear(): Promise<void>;
 }
 
-export const STORAGE_TOKEN = new InjectionToken<Storage>("STORAGE");
+const STORAGE_TOKEN = new InjectionToken<Storage>("STORAGE");
+export const STORAGE_PROVIDER: Provider = {
+  provide: STORAGE_TOKEN,
+  useClass: PwaStorage,
+};
+
+export function injectStorage(): Storage {
+  return inject(STORAGE_TOKEN);
+}
