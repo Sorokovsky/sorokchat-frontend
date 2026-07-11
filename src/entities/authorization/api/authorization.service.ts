@@ -4,7 +4,7 @@ import { lastValueFrom } from "rxjs";
 import { LoginPayload } from "./login.schema";
 import { RegisterPayload } from "./register.schema";
 import { User } from "../../user/@x/authorization";
-import { SERVER_URL } from "@shared/index";
+import { SERVER_URL } from "@shared/configs";
 
 @Service()
 export class AuthorizationService {

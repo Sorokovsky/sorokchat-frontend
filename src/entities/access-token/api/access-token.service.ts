@@ -1,5 +1,5 @@
 import { Service, Signal } from "@angular/core";
-import { injectStorage, Storage } from "@shared/index";
+import { injectStorage, Storage } from "@shared/api";
 
 @Service()
 export class AccessTokenService {
