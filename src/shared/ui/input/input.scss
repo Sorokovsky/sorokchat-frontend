@@ -1,3 +1,17 @@
+@use "@shared/styles/colors.scss" as *;
+
 :host {
-  display: block;
+  display: contents;
+}
+
+.input {
+  border: 1px solid $borderColor;
+  outline: none;
+  background-color: $secondaryBackroundColor;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  &, &::placeholder {
+    color: $iconColor;
+  }
 }

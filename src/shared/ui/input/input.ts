@@ -1,5 +1,6 @@
 import { Component, input } from "@angular/core";
 import { FieldState, FormField } from "@angular/forms/signals";
+import { InputType } from "../../types";
 
 @Component({
   selector: "app-input",
@@ -10,5 +11,6 @@ import { FieldState, FormField } from "@angular/forms/signals";
 export class Input {
   public readonly field = input.required<FieldState<string>>();
   public readonly placeholder = input.required<string>();
-  public readonly type = input.required<HTMLInputElement["type"]>();
+  public readonly type = input.required<InputType>();
+  public readonly isValid = input<boolean>(true);
 }

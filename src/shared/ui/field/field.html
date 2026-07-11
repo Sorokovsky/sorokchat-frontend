@@ -1,0 +1,3 @@
+@let formField = field();
+<app-label [htmlFor]="formField.name()" class="label">{{label()}}</app-label>
+<app-input [field]="formField" [placeholder]="placeholder()" [type]="type()" [isValid]="isValid()" />
