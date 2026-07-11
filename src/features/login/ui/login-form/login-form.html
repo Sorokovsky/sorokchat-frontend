@@ -1,4 +1,11 @@
 <app-form>
   <h1 class="title">Вхід</h1>
-  <app-field [field]="loginForm.login()" placeholder="Введіть ваш логін" type="text" label="Логін" />
+  <div class="authorization-form">
+    <app-field [field]="loginForm.login()" placeholder="Введіть ваш логін" type="text" label="Логін" />
+    <app-field [field]="loginForm.password()" placeholder="Введіть ваш пароль" type="password" label="Пароль" />
+    <app-button [disabled]="loginForm().invalid()">Увійти</app-button>
+    <p class="guide">Якщо ще не зареєстровані, <a [routerLink]="['/', 'authorization' , 'register']"
+        class="accent">зареєструйтеся</a>
+    </p>
+  </div>
 </app-form>

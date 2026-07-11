@@ -32,3 +32,26 @@ body {
   background-color: $primaryBackgroundColor;
   color: $primaryTextColor;
 }
+
+.title {
+  text-align: center;
+  font-size: 24px;
+}
+
+.authorization-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.guide {
+  font-size: 20px;
+  text-align: center;
+}
+
+.accent {
+  color: $accentColor;
+  &:hover {
+    text-decoration: underline;
+  }
+}
