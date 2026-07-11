@@ -25,10 +25,11 @@
     "valibot": "^1.4.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^22.0.6",
     "@angular/build": "^22.0.6",
     "@angular/cli": "^22.0.6",
-    "@angular/compiler-cli": "^22.0.0",
     "@eslint/js": "^10.0.1",
+    "@ngx-env/builder": "^19.1.0",
     "angular-eslint": "22.0.0",
     "eslint": "^10.3.0",
     "eslint-plugin-import-x": "^4.17.1",
