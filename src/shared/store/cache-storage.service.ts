@@ -1,5 +1,5 @@
 import { Service, signal, Signal, WritableSignal } from "@angular/core";
-import { Storage } from "./storage.api";
+import { Storage } from "./storage.interface";
 
 @Service()
 export class CacheStorage implements Storage {

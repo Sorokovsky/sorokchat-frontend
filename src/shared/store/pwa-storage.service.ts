@@ -1,6 +1,6 @@
 import { computed, inject, Service, Signal } from "@angular/core";
-import { Storage } from "./storage.api";
-import { PersistanceStorage } from "./persistance-storage.service";
+import { Storage } from "./storage.interface";
+import { PersistanceStorage } from "../lib";
 import { CacheStorage } from "./cache-storage.service";
 
 @Service()

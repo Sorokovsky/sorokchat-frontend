@@ -1,4 +1,4 @@
-import { Page } from "@shared/model";
+import { Page } from "@shared/types";
 
 export const LOGIN_PAGE: Page = {
   loadComponent: () => import("../ui").then((module) => module.LoginPage),

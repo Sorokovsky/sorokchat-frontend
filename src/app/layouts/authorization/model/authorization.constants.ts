@@ -1,5 +1,5 @@
 import { LOGIN_PAGE } from "@pages/login";
-import { Layout } from "@shared/model";
+import { Layout } from "@shared/types";
 
 export const AUTHORIZATION_LAYOUT: Layout = {
   path: "authorization",

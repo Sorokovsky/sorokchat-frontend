@@ -1,5 +1,5 @@
 import { Route } from "@angular/router";
-import { Page } from "./page.model";
+import { Page } from "./page.type";
 
 export interface Layout {
   path: Route["path"];

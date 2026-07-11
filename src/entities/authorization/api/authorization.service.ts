@@ -4,31 +4,32 @@ import { lastValueFrom } from "rxjs";
 import { LoginPayload } from "./login.schema";
 import { RegisterPayload } from "./register.schema";
 import { User } from "../../user/@x/authorization";
-import { SERVER_URL } from "@shared/configs";
+import { injectApiUrl } from "@shared/config";
 
 @Service()
 export class AuthorizationService {
-  private static readonly AUTHORIZATION: string = `${SERVER_URL}/authorization`;
-  private static readonly REGISTER: string = `${AuthorizationService.AUTHORIZATION}/register`;
-  private static readonly LOGIN: string = `${AuthorizationService.AUTHORIZATION}/login`;
-  private static readonly PROFILE: string = `${AuthorizationService.AUTHORIZATION}/profile`;
-  private static readonly LOGOUT: string = `${AuthorizationService.AUTHORIZATION}/logout`;
-
   private readonly http: HttpClient = inject(HttpClient);
+  private readonly apiUrl: string = injectApiUrl();
+
+  private readonly AUTHORIZATION: string = `${this.apiUrl}/authorization`;
+  private readonly REGISTER: string = `${this.AUTHORIZATION}/register`;
+  private readonly LOGIN: string = `${this.AUTHORIZATION}/login`;
+  private readonly PROFILE: string = `${this.AUTHORIZATION}/profile`;
+  private readonly LOGOUT: string = `${this.AUTHORIZATION}/logout`;
 
   public async register(payload: RegisterPayload): Promise<void> {
-    return await lastValueFrom(this.http.post<void>(AuthorizationService.REGISTER, payload));
+    return await lastValueFrom(this.http.post<void>(this.REGISTER, payload));
   }
 
   public async login(payload: LoginPayload): Promise<void> {
-    return await lastValueFrom(this.http.post<void>(AuthorizationService.LOGIN, payload));
+    return await lastValueFrom(this.http.post<void>(this.LOGIN, payload));
   }
 
   public async profile(): Promise<User> {
-    return await lastValueFrom(this.http.get<User>(AuthorizationService.PROFILE));
+    return await lastValueFrom(this.http.get<User>(this.PROFILE));
   }
 
   public async logout(): Promise<void> {
-    return await lastValueFrom(this.http.delete<void>(AuthorizationService.LOGOUT));
+    return await lastValueFrom(this.http.delete<void>(this.LOGOUT));
   }
 }

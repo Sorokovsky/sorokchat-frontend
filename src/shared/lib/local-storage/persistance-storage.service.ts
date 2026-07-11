@@ -1,5 +1,5 @@
 import { inject, Service, Signal } from "@angular/core";
-import { Storage } from "./storage.api";
+import { Storage } from "../../store/storage.interface";
 import { StorageMap } from "@ngx-pwa/local-storage";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { lastValueFrom, map } from "rxjs";
