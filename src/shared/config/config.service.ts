@@ -4,18 +4,18 @@ import { safeParse } from "valibot";
 
 @Service()
 export class ConfigService {
-  private readonly envrorenmet: Environment;
+  private readonly environment: Environment;
 
   constructor() {
     const { success, output, issues } = safeParse(EnvironmentSchema, this.getEnvironment());
-    if (success) this.envrorenmet = output;
+    if (success) this.environment = output;
     else {
       throw new Error("Помилка валідаці: " + JSON.stringify(issues));
     }
   }
 
   public get(key: keyof Environment): Environment[keyof Environment] {
-    return this.envrorenmet[key];
+    return this.environment[key];
   }
 
   private getEnvironment(): Env {
