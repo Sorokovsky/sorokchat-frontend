@@ -4,4 +4,7 @@ export {
   LoginSchema,
   RegisterSchema,
   AuthorizationService,
+  PROFILE_KEY,
+  injectProfile,
+  injectIsAuthenticated,
 } from "./api";
