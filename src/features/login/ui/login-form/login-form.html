@@ -1,4 +1,4 @@
-<app-form>
+<app-form (send)="login($event)" [form]="loginForm">
   <h1 class="title">Вхід</h1>
   <div class="authorization-form">
     <app-field [field]="loginForm.login()" placeholder="Введіть ваш логін" type="text" label="Логін" />

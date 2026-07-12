@@ -1,3 +1,9 @@
 @let formField = field();
+@let errors = formField.errors();
 <app-label [htmlFor]="formField.name()" class="label">{{label()}}</app-label>
 <app-input [field]="formField" [placeholder]="placeholder()" [type]="type()" [isValid]="isValid()" />
+<ul class="errors">
+  @for(error of errors; track error.message) {
+  <li>{{error.message}}</li>
+  }
+</ul>

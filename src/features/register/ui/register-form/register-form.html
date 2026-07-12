@@ -1,0 +1,13 @@
+<app-form [form]="registerForm" (send)="register($event)">
+  <h1 class="title">Вхід</h1>
+  <div class="authorization-form">
+    <app-field [field]="registerForm.login()" placeholder="Введіть ваш логін" type="text" label="Логін" />
+    <app-field [field]="registerForm.password()" placeholder="Введіть ваш пароль" type="password" label="Пароль" />
+    <app-field [field]="registerForm.displayName()" placeholder="Введіть ваше видиме ім'я" type="password"
+      label="Видиме ім'я" />
+    <app-button [disabled]="registerForm().invalid()">Зареєструватися</app-button>
+    <p class="guide">Якщо вже зареєстровані, <a [routerLink]="['/', 'authorization' , 'login']"
+        class="accent">увійдіть</a>.
+    </p>
+  </div>
+</app-form>

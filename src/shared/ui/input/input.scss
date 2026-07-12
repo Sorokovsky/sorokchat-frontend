@@ -14,4 +14,7 @@
   &, &::placeholder {
     color: $iconColor;
   }
+  &.invalid {
+    border-color: $dangerColor;
+  }
 }

@@ -1,1 +1,3 @@
-<input class="input" [formField]="field" [placeholder]="placeholder()" [type]="type()" [id]="field().name()" />
+@let formField = field();
+<input class="input" [formField]="field" [placeholder]="placeholder()" [type]="type()" [id]="formField.name()"
+  [class.invalid]="formField.invalid()" />

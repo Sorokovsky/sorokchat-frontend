@@ -1,1 +1,1 @@
-export { valibotValidator } from "./valibot.validator";
+export { withValibot } from "./valibot.form";
