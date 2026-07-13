@@ -5,6 +5,7 @@ import { Form, Field, Button } from "@shared/ui";
 import { form } from "@angular/forms/signals";
 import { RouterLink } from "@angular/router";
 import { withValibot } from "@shared/lib";
+import { Path } from "@shared/util";
 
 @Component({
   selector: "app-login-form",
@@ -16,6 +17,7 @@ export class LoginForm {
   private readonly state = signal<LoginPayload>({ login: "", password: "" });
   protected readonly loginForm = form<LoginPayload>(this.state, withValibot(LoginSchema));
   private readonly loginMutation = injectLogin();
+  protected readonly registerPath: Path = Path.register;
 
   public login(payload: LoginPayload): void {
     this.loginMutation.mutate(payload);

@@ -5,6 +5,7 @@ import { withValibot } from "@shared/lib";
 import { Form, Field, Button } from "@shared/ui";
 import { RouterLink } from "@angular/router";
 import { injectRegister } from "../../api";
+import { Path } from "@shared/util";
 
 @Component({
   selector: "app-register-form",
@@ -16,6 +17,7 @@ export class RegisterForm {
   private readonly state = signal<RegisterPayload>({ login: "", password: "", displayName: "" });
   protected readonly registerForm = form<RegisterPayload>(this.state, withValibot(RegisterSchema));
   private readonly registerMutation = injectRegister();
+  protected readonly loginPath: Path = Path.login;
 
   public register(payload: RegisterPayload): void {
     this.registerMutation.mutate(payload);
