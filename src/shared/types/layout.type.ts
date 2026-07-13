@@ -4,6 +4,6 @@ import { Page } from "./page.type";
 export interface Layout {
   path: Route["path"];
   children: (Layout | Page)[];
-  canActivatChild: Route["canActivateChild"];
+  canActivateChild: Route["canActivateChild"];
   loadComponent: Route["loadComponent"];
 }

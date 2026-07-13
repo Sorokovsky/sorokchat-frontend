@@ -1,8 +1,10 @@
 export class Path {
   private static readonly INDEX: string = "/";
+  private static readonly ALL: string = "*";
   private static readonly AUTHORIZATION: string = "authorization";
   private static readonly LOGIN: string = "login";
   private static readonly REGISTER: string = "register";
+  private static readonly CHATS: string = "chats";
 
   private readonly path: string;
   private readonly rootPath?: Path;
@@ -13,7 +15,8 @@ export class Path {
   }
 
   public get value(): string {
-    return this.path;
+    if (this.path === "*") return "";
+    else return this.path;
   }
 
   public get fullPath(): string[] {
@@ -35,5 +38,13 @@ export class Path {
 
   public static get login(): Path {
     return new Path(this.LOGIN, this.authorization);
+  }
+
+  public static get mainLayout(): Path {
+    return new Path(this.ALL, this.index);
+  }
+
+  public static get chats(): Path {
+    return new Path(this.CHATS, this.mainLayout);
   }
 }
