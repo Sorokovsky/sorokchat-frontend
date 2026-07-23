@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { ErrorPayload } from "@shared/types";
+import { ErrorPayload } from "../../types";
 import { injectMutation as mutation, QueryClient } from "@tanstack/angular-query-experimental";
 import { toast } from "ngx-sonner";
 
