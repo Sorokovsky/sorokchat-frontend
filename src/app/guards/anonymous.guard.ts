@@ -9,5 +9,5 @@ export const anonymousGuard: CanActivateChildFn = () => {
   if (!isAuthenticated()) {
     return true;
   }
-  return router.createUrlTree(Path.mainLayout.fullPath);
+  return router.createUrlTree(Path.chats.fullPath);
 };

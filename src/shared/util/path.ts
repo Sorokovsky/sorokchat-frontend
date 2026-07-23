@@ -21,7 +21,7 @@ export class Path {
 
   public get fullPath(): string[] {
     if (!this.rootPath) return [this.value];
-    else return [...this.rootPath.fullPath, this.value];
+    else return [...this.rootPath.fullPath, this.value].filter((path) => path !== "");
   }
 
   public static get index(): Path {

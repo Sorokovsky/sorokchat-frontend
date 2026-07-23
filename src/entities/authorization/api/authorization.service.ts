@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Service } from "@angular/core";
-import { lastValueFrom } from "rxjs";
+import { lastValueFrom, Observable } from "rxjs";
 import { LoginPayload } from "./login.schema";
 import { RegisterPayload } from "./register.schema";
 import { User } from "../../user/@x/authorization";
@@ -18,6 +18,7 @@ export class AuthorizationService {
   private readonly REGISTER: string = `${this.AUTHORIZATION}/register`;
   private readonly LOGIN: string = `${this.AUTHORIZATION}/login`;
   private readonly PROFILE: string = `${this.AUTHORIZATION}/profile`;
+  public readonly REFRESH_TOKENS: string = `${this.AUTHORIZATION}/refresh-tokens`;
   private readonly LOGOUT: string = `${this.AUTHORIZATION}/logout`;
 
   public async register(payload: RegisterPayload): Promise<void> {
@@ -36,6 +37,10 @@ export class AuthorizationService {
 
   public async profile(): Promise<User> {
     return await lastValueFrom(this.http.get<User>(this.PROFILE));
+  }
+
+  public refreshTokens(): Observable<AuthenticatedPayload> {
+    return this.http.put<AuthenticatedPayload>(this.REFRESH_TOKENS, null);
   }
 
   public async logout(): Promise<void> {

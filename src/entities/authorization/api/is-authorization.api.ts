@@ -3,5 +3,5 @@ import { injectProfile } from "./profile.query";
 
 export function injectIsAuthenticated() {
   const profile = injectProfile();
-  return computed<boolean>(() => profile.data() !== undefined);
+  return computed<boolean>(() => !!profile.data());
 }

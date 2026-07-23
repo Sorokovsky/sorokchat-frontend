@@ -1,1 +1,1 @@
-export { accessTokenInterceptor } from "./api";
+export { accessTokenInterceptor, refreshTokenInterceptor } from "./api";
