@@ -1,4 +1,6 @@
 import { injectQuery as query } from "@tanstack/angular-query-experimental";
+import { ErrorPayload } from "../../types";
+import { toast } from "ngx-sonner";
 
 export function injectQuery<TData>(
   queryKeys: readonly string[],
@@ -9,5 +11,9 @@ export function injectQuery<TData>(
     queryKey: queryKeys,
     queryFn: queryFunction,
     retry,
+    throwOnError(error: ErrorPayload) {
+      toast.error(error.title || "Невідома помилка");
+      return false;
+    },
   }));
 }
