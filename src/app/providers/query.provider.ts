@@ -8,10 +8,10 @@ export const QUERY_PROVIDER: Provider[] = provideTanStackQuery(
       queries: {
         retryOnMount: true,
         refetchOnWindowFocus: false,
-        throwOnError: true,
+        throwOnError: false,
       },
       mutations: {
-        throwOnError: true,
+        throwOnError: false,
       },
     },
   }),

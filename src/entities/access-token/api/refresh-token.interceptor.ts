@@ -16,7 +16,7 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
-  const authorizationService: AuthorizationService = inject(AuthorizationService);
+  const authorizationService = inject(AuthorizationService);
   if (request.url.includes(authorizationService.REFRESH_TOKENS)) {
     return next(request);
   }
@@ -25,6 +25,7 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (
       if (!(error instanceof HttpErrorResponse)) {
         return throwError(() => error);
       }
+
       const payload = error.error as ErrorPayload | undefined;
       if (payload?.status !== 401 || error.headers.get("WWW-Authenticate") !== "Bearer") {
         return throwError(() => error);
@@ -33,26 +34,33 @@ export const refreshTokenInterceptor: HttpInterceptorFn = (
         refreshSubject = new BehaviorSubject<string | null>(null);
         authorizationService.refreshTokens().subscribe({
           next: ({ accessToken }) => {
-            refreshSubject?.next(accessToken);
-            refreshSubject?.complete();
+            refreshSubject!.next(accessToken ?? null);
+            refreshSubject!.complete();
             refreshSubject = null;
           },
-          error: (error) => {
-            refreshSubject?.error(error);
+          error: (refreshError) => {
+            refreshSubject!.error(refreshError);
             refreshSubject = null;
           },
         });
       }
+
       return refreshSubject.pipe(
         filter((token): token is string => token !== null),
         take(1),
         switchMap((token) => {
+          if (!token) {
+            return throwError(() => new Error("Токен відсутній"));
+          }
           const newRequest = request.clone({
             setHeaders: { Authorization: `Bearer ${token}` },
           });
           return next(newRequest);
         }),
-        catchError(() => {
+        catchError((refreshError) => {
+          if (refreshError instanceof HttpErrorResponse && refreshError.status === 401) {
+            return throwError(() => refreshError);
+          }
           return throwError(() => error);
         }),
       );

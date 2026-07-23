@@ -1,13 +1,20 @@
 import { inject } from "@angular/core";
+import { toObservable } from "@angular/core/rxjs-interop";
 import { Router, type CanActivateChildFn } from "@angular/router";
 import { injectIsAuthenticated } from "@entities/authorization";
 import { Path } from "@shared/util";
+import { distinctUntilChanged, map } from "rxjs";
 
 export const anonymousGuard: CanActivateChildFn = () => {
-  const isAuthenticated = injectIsAuthenticated();
+  const isAuthenticatedSignal = injectIsAuthenticated();
   const router = inject(Router);
-  if (!isAuthenticated()) {
-    return true;
-  }
-  return router.createUrlTree(Path.chats.fullPath);
+  return toObservable(isAuthenticatedSignal).pipe(
+    distinctUntilChanged(),
+    map((isAuthenticated) => {
+      if (!isAuthenticated) {
+        return true;
+      }
+      return router.createUrlTree(Path.chats.fullPath);
+    }),
+  );
 };
