@@ -1,1 +1,1 @@
-export { AccessTokenService } from "./api";
+export { accessTokenInterceptor } from "./api";

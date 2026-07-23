@@ -5,11 +5,14 @@ import { LoginPayload } from "./login.schema";
 import { RegisterPayload } from "./register.schema";
 import { User } from "../../user/@x/authorization";
 import { injectApiUrl } from "@shared/config";
+import { AuthenticatedPayload } from "./authenticated.schema";
+import { AccessTokenService } from "../../access-token/@x/authorization";
 
 @Service()
 export class AuthorizationService {
   private readonly http: HttpClient = inject(HttpClient);
   private readonly apiUrl: string = injectApiUrl();
+  private readonly accessTokenService: AccessTokenService = inject(AccessTokenService);
 
   private readonly AUTHORIZATION: string = `${this.apiUrl}/authorization`;
   private readonly REGISTER: string = `${this.AUTHORIZATION}/register`;
@@ -18,11 +21,17 @@ export class AuthorizationService {
   private readonly LOGOUT: string = `${this.AUTHORIZATION}/logout`;
 
   public async register(payload: RegisterPayload): Promise<void> {
-    return await lastValueFrom(this.http.post<void>(this.REGISTER, payload));
+    const { accessToken } = await lastValueFrom(
+      this.http.post<AuthenticatedPayload>(this.REGISTER, payload),
+    );
+    await this.accessTokenService.set(accessToken);
   }
 
   public async login(payload: LoginPayload): Promise<void> {
-    return await lastValueFrom(this.http.post<void>(this.LOGIN, payload));
+    const { accessToken } = await lastValueFrom(
+      this.http.post<AuthenticatedPayload>(this.LOGIN, payload),
+    );
+    await this.accessTokenService.set(accessToken);
   }
 
   public async profile(): Promise<User> {
@@ -30,6 +39,7 @@ export class AuthorizationService {
   }
 
   public async logout(): Promise<void> {
-    return await lastValueFrom(this.http.delete<void>(this.LOGOUT));
+    await lastValueFrom(this.http.delete<void>(this.LOGOUT));
+    await this.accessTokenService.delete();
   }
 }
